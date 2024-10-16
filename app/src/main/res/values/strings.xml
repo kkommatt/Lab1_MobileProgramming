@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Lab1_MobileProgramming</string>
+    <string name="app_name">Geometric Shapes</string>
+    <string-array name="shapes_array">
+        <item>Triangle</item>
+        <item>Quadrilateral</item>
+        <item>Circle</item>
+        <item>Ellipse</item>
+    </string-array>
 </resources>
