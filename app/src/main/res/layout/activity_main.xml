@@ -7,22 +7,22 @@
     <Spinner
         android:id="@+id/shapeSpinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp"
         android:layout_marginBottom="16dp" />
 
     <EditText
         android:id="@+id/coordinatesInput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter coordinates (x1,y1;x2,y2;...)"
-        android:layout_marginBottom="16dp" />
+        android:layout_height="74dp"
+        android:layout_marginBottom="16dp"
+        android:hint="Enter coordinates (x1,y1;x2,y2;...)" />
 
     <Button
         android:id="@+id/calculateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calculate Area & Perimeter"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:text="Calculate Area and Perimeter" />
 
     <Button
         android:id="@+id/saveButton"
@@ -30,9 +30,18 @@
         android:layout_height="wrap_content"
         android:text="Save Data" />
 
-    <MyCustomView
-        android:id="@+id/drawingView"
+    <Button
+        android:id="@+id/graphButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Graph Shape" />
+
+    <Button
+        android:id="@+id/Author"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="16dp" />
+        android:layout_height="wrap_content"
+        android:backgroundTint="#0000FF"
+        android:onClick="openAuthorActivity"
+        android:text="Author" />
+
 </LinearLayout>
