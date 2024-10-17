@@ -1,3 +1,5 @@
+package com.example.lab1_mobileprogramming;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
