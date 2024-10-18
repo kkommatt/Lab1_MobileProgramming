@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText coordinatesInput;
     private Button calculateButton;
     private Button saveButton;
+    private Button graphButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +111,12 @@ public class MainActivity extends AppCompatActivity {
         coordinatesInput = findViewById(R.id.coordinatesInput);
         calculateButton = findViewById(R.id.calculateButton);
         saveButton = findViewById(R.id.saveButton);
+        graphButton = findViewById(R.id.graphButton);
+
+        String[] shapes = {"Triangle", "Circle", "Ellipse", "Quadrilateral"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, shapes);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        shapeSpinner.setAdapter(adapter);
 
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 String shapeType = shapeSpinner.getSelectedItem().toString();
                 String[] points = coordinatesInput.getText().toString().split(";");
 
-                try {
-                    Shape shape = ShapeFactory.createShape(shapeType, points);
+                try {var shape = ShapeFactory.createShape(shapeType, points);
                     double area = shape.calculateArea();
                     double perimeter = shape.calculatePerimeter();
                     Toast.makeText(MainActivity.this,
@@ -155,6 +161,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        graphButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String shapeType = shapeSpinner.getSelectedItem().toString();
+                String coordinates = coordinatesInput.getText().toString();
+
+                Intent intent = new Intent(MainActivity.this, GraphActivity.class);
+                intent.putExtra("shapeType", shapeType);
+                intent.putExtra("coordinates", coordinates);
+                startActivity(intent);
+            }
+        });
+
         Button authorButton = findViewById(R.id.Author);
         authorButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,18 +187,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AuthorActivity.class);
         startActivity(intent);
     }
-
-    graphButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String shapeType = shapeSpinner.getSelectedItem().toString();
-            String coordinates = coordinatesInput.getText().toString();
-
-            // Start GraphActivity and pass shapeType and coordinates
-            Intent intent = new Intent(MainActivity.this, GraphActivity.class);
-            intent.putExtra("shapeType", shapeType);
-            intent.putExtra("coordinates", coordinates);
-            startActivity(intent);
-        }
-    });
 }

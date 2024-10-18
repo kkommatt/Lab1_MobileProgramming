@@ -26,7 +26,8 @@ public class Triangle implements Shape {
 
     @Override
     public double calculateArea() {
-        return Math.abs((x[0] * (y[1] - y[2]) + x[1] * (y[2] - y[0]) + x[2] * (y[0] - y[1])) / 2.0);
+        double value = Math.abs((double) (x[0] * (y[1] - y[2]) + x[1] * (y[2] - y[0]) + x[2] * (y[0] - y[1]))) / 2.0;
+        return value;
     }
 
     @Override
