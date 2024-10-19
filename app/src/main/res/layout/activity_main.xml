@@ -1,47 +1,81 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     android:orientation="vertical"
     android:padding="16dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculator for simple figures"
+        android:textSize="24sp"
+        android:paddingBottom="16dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="sans-serif-medium" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select figure" />
 
     <Spinner
         android:id="@+id/shapeSpinner"
         android:layout_width="match_parent"
         android:layout_height="68dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:padding="8dp" />
 
     <EditText
         android:id="@+id/coordinatesInput"
         android:layout_width="match_parent"
         android:layout_height="74dp"
         android:layout_marginBottom="16dp"
-        android:hint="Enter coordinates (x1,y1;x2,y2;...)" />
+        android:hint="Enter x1,y1;x2,y2;..., cicle and ellipse x,y,r or x,y,a,b"
+        android:padding="10dp"
+        android:textColor="@color/textColor" />
 
     <Button
         android:id="@+id/calculateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Calculate Area and Perimeter" />
+        android:backgroundTint="@color/colorAccent"
+        android:fontFamily="sans-serif-medium"
+        android:padding="10dp"
+        android:text="Calculate Area and Perimeter"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Data" />
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorAccent"
+        android:fontFamily="sans-serif-medium"
+        android:padding="10dp"
+        android:text="Save Data"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/graphButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Graph Shape" />
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorAccent"
+        android:fontFamily="sans-serif-medium"
+        android:padding="10dp"
+        android:text="Graph Shape"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/Author"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#0000FF"
+        android:backgroundTint="@color/colorPrimary"
+        android:fontFamily="sans-serif-medium"
         android:onClick="openAuthorActivity"
-        android:text="Author" />
-
+        android:padding="10dp"
+        android:text="Author"
+        android:textColor="#FFFFFF" />
 </LinearLayout>
