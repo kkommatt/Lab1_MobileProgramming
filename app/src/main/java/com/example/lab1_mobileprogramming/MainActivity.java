@@ -13,8 +13,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Button calculateButton;
     private Button saveButton;
     private Button graphButton;
+    private Button readButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         calculateButton = findViewById(R.id.calculateButton);
         saveButton = findViewById(R.id.saveButton);
         graphButton = findViewById(R.id.graphButton);
+        readButton = findViewById(R.id.readButton);
 
         String[] shapes = {"Triangle", "Circle", "Ellipse", "Quadrilateral"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, shapes);
@@ -75,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
                     String[] points_check = coordinatesInput.getText().toString().split(";");
                     var shape = ShapeFactory.createShape(shapeType, points_check);
-                    FileOutputStream fos = openFileOutput("data.txt", MODE_APPEND);
+                    FileOutputStream fos = openFileOutput("data.txt", MODE_PRIVATE);
                     fos.write(dataToSave.getBytes());
                     fos.close();
 
@@ -83,6 +88,47 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(MainActivity.this, "Error saving data: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        readButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    FileInputStream fis = openFileInput("data.txt");
+                    InputStreamReader isr = new InputStreamReader(fis);
+                    BufferedReader bufferedReader = new BufferedReader(isr);
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    String lastShapeType = "";
+                    String lastCoordinates = "";
+
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                        if (line.startsWith("Shape: ")) {
+                            lastShapeType = line.substring("Shape: ".length()).trim();
+                        }
+                        // Check if the line contains coordinates
+                        if (line.startsWith("Coordinates: ")) {
+                            lastCoordinates = line.substring("Coordinates: ".length()).trim();
+                        }
+                    }
+
+                    fis.close();
+
+                    if (!lastShapeType.isEmpty()) {
+                        int spinnerPosition = ((ArrayAdapter<String>) shapeSpinner.getAdapter()).getPosition(lastShapeType);
+                        if (spinnerPosition >= 0) {
+                            shapeSpinner.setSelection(spinnerPosition);
+                        }
+                    }
+
+                    coordinatesInput.setText(lastCoordinates);
+                    Toast.makeText(MainActivity.this, "Data read from data.txt!", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "Error showing graph: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -111,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
         Button authorButton = findViewById(R.id.Author);
         authorButton.setOnClickListener(new View.OnClickListener() {
             @Override
